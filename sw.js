@@ -6,7 +6,8 @@
      - Serve from cache first, fall back to network, fall back to index.html
    ============================================================ */
 
-const CACHE = "emh-v4";  // was v3, v2, v1 — bump every time you change files
+const CACHE = "emh-v5";
+
 /* Only the shell — these MUST all exist */
 const SHELL = [
   "./",
@@ -15,8 +16,6 @@ const SHELL = [
   "./app.js",
   "./manifest.json",
   "./data/registry.js",
-  "./icon-192.png",
-  "./icon-512.png",
 ];
 
 /* ---------- INSTALL ---------- */
@@ -75,7 +74,7 @@ self.addEventListener("fetch", (event) => {
           return response;
         })
         .catch(() => {
-          // Network failed — try to serve index.html as a fallback for navigation requests
+          // Network failed — serve index.html as fallback for navigation requests
           if (request.mode === "navigate") {
             return caches.match("./index.html");
           }
