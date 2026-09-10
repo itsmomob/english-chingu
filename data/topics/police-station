@@ -1,0 +1,179 @@
+registerTopic({
+  id: "police-station",
+  title: "At the Police Station",
+  titleKo: "경찰서에서",
+  category: "Everyday Places",
+  level: "Intermediate",
+  emoji: "🚔",
+  summary: "Reporting a crime, filing a report, and handling police interactions in English.",
+  summaryKo: "범죄 신고, 신고서 작성, 경찰과의 상호작용에 필요한 표현.",
+
+  sections: [
+    {
+      title: "Reporting a Crime",
+      titleKo: "범죄 신고",
+      questions: [
+        {
+          q: "What would you do if you witnessed a crime?",
+          qKo: "범죄를 목격하면 어떻게 하시겠어요?",
+          vocab: [
+            { en: "witness",     ko: "목격자" },
+            { en: "suspect",     ko: "용의자" },
+            { en: "crime scene", ko: "범죄 현장" },
+            { en: "emergency",   ko: "긴급 상황" },
+          ],
+          phrasalVerbs: [
+            { en: "call in",   ko: "신고하다" },
+            { en: "back away", ko: "물러서다" },
+          ],
+          model: "I would call it in immediately and back away to stay safe.",
+          modelKo: "즉시 신고하고, 안전을 위해 물러설 거예요.",
+        },
+        {
+          q: "Have you ever had to file a police report?",
+          qKo: "경찰에 신고서를 제출한 적이 있나요?",
+          vocab: [
+            { en: "police report",  ko: "경찰 신고서" },
+            { en: "statement",      ko: "진술" },
+            { en: "case number",    ko: "사건 번호" },
+            { en: "incident",       ko: "사건" },
+          ],
+          phrasalVerbs: [
+            { en: "fill out",  ko: "작성하다" },
+            { en: "hand in",   ko: "제출하다" },
+          ],
+          model: "Yes, once for a lost wallet. I filled out a report and handed in my statement at the station.",
+          modelKo: "네, 지갑을 잃어버렸을 때요. 신고서를 작성하고 경찰서에 진술서를 제출했어요.",
+        },
+        {
+          q: "What's the emergency number in your country?",
+          qKo: "당신 나라의 긴급 전화번호는 무엇인가요?",
+          vocab: [
+            { en: "emergency number", ko: "긴급 전화번호" },
+            { en: "operator",         ko: "교환원" },
+            { en: "dispatch",         ko: "출동" },
+            { en: "response time",    ko: "대응 시간" },
+          ],
+          phrasalVerbs: [
+            { en: "call up",  ko: "전화하다" },
+            { en: "hang up",  ko: "전화를 끊다" },
+          ],
+          model: "In Korea, it's 112. When I call up, I stay calm and wait for dispatch without hanging up.",
+          modelKo: "한국에서는 112예요. 전화할 때 침착하게 출동을 기다리고 끊지 않아요.",
+        },
+      ],
+    },
+    {
+      title: "Filing a Report",
+      titleKo: "신고서 작성",
+      questions: [
+        {
+          q: "What kind of information do you need to give the police?",
+          qKo: "경찰에게 어떤 정보를 제공해야 하나요?",
+          vocab: [
+            { en: "ID",          ko: "신분증" },
+            { en: "address",     ko: "주소" },
+            { en: "description", ko: "설명" },
+            { en: "timeline",    ko: "시간 순서" },
+          ],
+          phrasalVerbs: [
+            { en: "go over",   ko: "검토하다" },
+            { en: "hand over", ko: "건네다" },
+          ],
+          model: "You need to go over what happened in order and hand over your ID and contact details.",
+          modelKo: "무슨 일이 있었는지 순서대로 검토하고 신분증과 연락처를 건네야 해요.",
+        },
+        {
+          q: "How do you stay calm when talking to the police?",
+          qKo: "경찰과 이야기할 때 어떻게 침착함을 유지하나요?",
+          vocab: [
+            { en: "calm",       ko: "침착한" },
+            { en: "composure",  ko: "평정" },
+            { en: "nervous",    ko: "긴장한" },
+            { en: "polite",     ko: "예의 바른" },
+          ],
+          phrasalVerbs: [
+            { en: "keep it together", ko: "평정을 유지하다" },
+            { en: "speak up",         ko: "크게 말하다" },
+          ],
+          model: "I try to keep it together and speak up politely, even when I'm nervous.",
+          modelKo: "긴장돼도 평정을 유지하고 예의 바르게 크게 말하려고 해요.",
+        },
+        {
+          q: "What should you do if you're a victim of theft abroad?",
+          qKo: "해외에서 도난 피해자가 되면 어떻게 해야 하나요?",
+          vocab: [
+            { en: "embassy",     ko: "대사관" },
+            { en: "consulate",   ko: "영사관" },
+            { en: "insurance claim", ko: "보험 청구" },
+            { en: "police report", ko: "경찰 신고서" },
+          ],
+          phrasalVerbs: [
+            { en: "reach out to", ko: "연락하다" },
+            { en: "sort out",     ko: "해결하다" },
+          ],
+          model: "First, contact the local police for a report, then reach out to your embassy to sort out the paperwork.",
+          modelKo: "먼저 현지 경찰에 신고서를 요청하고, 대사관에 연락해 서류를 해결하세요.",
+        },
+      ],
+    },
+    {
+      title: "Police & Community",
+      titleKo: "경찰과 지역 사회",
+      questions: [
+        {
+          q: "How do you feel about police in your country?",
+          qKo: "당신 나라의 경찰에 대해 어떻게 느끼나요?",
+          vocab: [
+            { en: "trust",       ko: "신뢰" },
+            { en: "authority",   ko: "권위" },
+            { en: "community",   ko: "지역 사회" },
+            { en: "safety",      ko: "안전" },
+          ],
+          phrasalVerbs: [
+            { en: "look up to", ko: "존경하다" },
+            { en: "rely on",    ko: "의지하다" },
+          ],
+          model: "I generally look up to the police and rely on them to keep our community safe.",
+          modelKo: "저는 경찰을 존경하고, 지역 사회의 안전을 위해 경찰에 의지해요.",
+        },
+        {
+          q: "Have you ever had a positive or negative interaction with police?",
+          qKo: "경찰과 긍정적이거나 부정적인 상호작용을 한 적이 있나요?",
+          vocab: [
+            { en: "interaction", ko: "상호작용" },
+            { en: "helpful",     ko: "도움이 되는" },
+            { en: "respectful",  ko: "존중하는" },
+            { en: "professional", ko: "전문적인" },
+          ],
+          phrasalVerbs: [
+            { en: "run into",   ko: "우연히 만나다" },
+            { en: "walk away",  ko: "떠나다" },
+          ],
+          model: "Once I ran into a helpful officer who walked me to my car late at night. Very respectful.",
+          modelKo: "한 번은 늦은 밤에 차까지 안내해 준 친절한 경찰관을 우연히 만났어요. 아주 존중해 주셨어요.",
+        },
+        {
+          q: "Do you think police should wear body cameras?",
+          qKo: "경찰이 바디캠을 착용해야 한다고 생각하나요?",
+          vocab: [
+            { en: "body camera",  ko: "바디캠" },
+            { en: "transparency", ko: "투명성" },
+            { en: "accountability", ko: "책임" },
+            { en: "evidence",     ko: "증거" },
+          ],
+          phrasalVerbs: [
+            { en: "back up",    ko: "뒷받침하다" },
+            { en: "call for",   ko: "요구하다" },
+          ],
+          model: "Yes, body cameras back up evidence and call for more accountability and transparency.",
+          modelKo: "네, 바디캠은 증거를 뒷받침하고 더 많은 책임과 투명성을 요구할 수 있어요.",
+        },
+      ],
+    },
+  ],
+
+  grammarSpotlight: [
+    { title: "Modal Verbs", titleKo: "조동사", grammarId: "modals" },
+  ],
+});
