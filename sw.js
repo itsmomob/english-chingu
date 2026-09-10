@@ -1,14 +1,13 @@
 /* ============================================================
    Service Worker — English Mastery Hub
    Strategy:
-     - Precache the app shell (HTML, CSS, JS, registry, manifest)
+     - Precache the app shell
      - Cache topic & grammar files on first fetch
      - Serve from cache first, fall back to network, fall back to index.html
    ============================================================ */
 
-const CACHE = "emh-v5";
+const CACHE = "emh-v7";
 
-/* Only the shell — these MUST all exist */
 const SHELL = [
   "./",
   "./index.html",
@@ -18,12 +17,9 @@ const SHELL = [
   "./data/registry.js",
 ];
 
-/* ---------- INSTALL ---------- */
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE).then((cache) => {
-      // addAll() fails the whole install if one file 404s.
-      // Fall back to adding files individually and logging failures.
       return Promise.all(
         SHELL.map((url) =>
           cache.add(url).catch((err) => {
@@ -36,26 +32,19 @@ self.addEventListener("install", (event) => {
   self.skipWaiting();
 });
 
-/* ---------- ACTIVATE ---------- */
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys().then((keys) =>
-      Promise.all(
-        keys.filter((k) => k !== CACHE).map((k) => caches.delete(k))
-      )
+      Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k)))
     )
   );
   self.clients.claim();
 });
 
-/* ---------- FETCH ---------- */
 self.addEventListener("fetch", (event) => {
   const { request } = event;
-
-  // Only handle GET requests
   if (request.method !== "GET") return;
 
-  // Don't cache cross-origin requests we can't control (fonts get cached by the browser)
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return;
 
@@ -65,7 +54,6 @@ self.addEventListener("fetch", (event) => {
 
       return fetch(request)
         .then((response) => {
-          // Don't cache non-OK responses
           if (!response || response.status !== 200 || response.type !== "basic") {
             return response;
           }
@@ -74,7 +62,6 @@ self.addEventListener("fetch", (event) => {
           return response;
         })
         .catch(() => {
-          // Network failed — serve index.html as fallback for navigation requests
           if (request.mode === "navigate") {
             return caches.match("./index.html");
           }

@@ -1,0 +1,32 @@
+registerGrammar({
+  id: "subject-verb-agreement",
+  title: "Subject-Verb Agreement",
+  titleKo: "주어-동사 수 일치",
+  level: "Beginner",
+  category: "Verbs",
+  explanationKo: "영어에서는 주어의 수(단수/복수)에 따라 동사의 형태가 달라집니다. 한국어에는 이런 개념이 없어서 한국인 학습자가 자주 실수하는 부분이에요. 주어가 3인칭 단수이면 동사에 -s를 붙여야 합니다.",
+  explanationEn: "In English, the verb must match the subject in number. If the subject is third-person singular (he/she/it), add -s to the verb in the present tense.",
+  structure: "He/She/It + verb-s  |  I/You/We/They + base verb",
+  examples: [
+    { en: "She works at a hospital.", ko: "그녀는 병원에서 일해요." },
+    { en: "They work at a hospital.", ko: "그들은 병원에서 일해요." },
+    { en: "The dog barks loudly.", ko: "그 개는 크게 짖어요." },
+    { en: "The dogs bark loudly.", ko: "그 개들은 크게 짖어요." },
+    { en: "Everyone has a phone.", ko: "모두가 휴대폰을 가지고 있어요." },
+    { en: "The news is surprising.", ko: "그 뉴스는 놀라워요." },
+  ],
+  commonMistakes: [
+    { wrong: "She work at a bank.", right: "She works at a bank.", note: "Add -s to the verb with he/she/it in present simple." },
+    { wrong: "The dogs barks loudly.", right: "The dogs bark loudly.", note: "Plural subjects use the base verb." },
+    { wrong: "Everyone have a phone.", right: "Everyone has a phone.", note: "'Everyone' is grammatically singular — use 'has', not 'have'." },
+    { wrong: "The news are good.", right: "The news is good.", note: "'News' looks plural but is uncountable — use singular verb." },
+  ],
+  tips: [
+    "He, She, It + verb-s: He likes coffee.",
+    "I, You, We, They + base verb: They like coffee.",
+    "'Everyone', 'everybody', 'someone', 'nobody' are singular: Everyone is here.",
+    "Collective nouns (team, family, government) can be singular or plural depending on context.",
+    "Phrases between the subject and verb don't change the agreement: The box of chocolates is on the table.",
+  ],
+  related: ["present-tense", "countable-uncountable"],
+});

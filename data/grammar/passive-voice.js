@@ -1,0 +1,31 @@
+registerGrammar({
+  id: "passive-voice",
+  title: "Passive Voice",
+  titleKo: "수동태",
+  level: "Intermediate",
+  category: "Verbs",
+  explanationKo: "수동태는 주어가 동작을 하는 사람이 아니라 동작을 받는 사람/것일 때 사용합니다. 한국어의 '~되다', '~당하다'와 비슷해요. 영어에서는 be + 과거분사 형태로 만듭니다.",
+  explanationEn: "Passive voice is used when the subject receives the action rather than performs it. It's formed with be + past participle.",
+  structure: "Subject + be + past participle (+ by agent)  |  The letter was written by John.",
+  examples: [
+    { en: "The letter was written by John.", ko: "그 편지는 존에 의해 쓰였어요." },
+    { en: "This building was built in 1990.", ko: "이 건물은 1990년에 지어졌어요." },
+    { en: "The problem is being solved.", ko: "문제가 해결되고 있어요." },
+    { en: "English is spoken all over the world.", ko: "영어는 전 세계에서 사용돼요." },
+    { en: "My wallet was stolen yesterday.", ko: "어제 지갑을 도난당했어요." },
+    { en: "The results will be announced tomorrow.", ko: "결과가 내일 발표될 거예요." },
+  ],
+  commonMistakes: [
+    { wrong: "The letter was wrote by John.", right: "The letter was written by John.", note: "Use the past participle (V3), not the past simple (V2)." },
+    { wrong: "The building is built in 1990.", right: "The building was built in 1990.", note: "Use 'was' for past passive." },
+    { wrong: "I was stolen my wallet.", right: "My wallet was stolen.", note: "The thing that receives the action becomes the subject." },
+  ],
+  tips: [
+    "Passive = be + past participle (V3).",
+    "Use passive when the doer is unknown or unimportant: The cake was eaten.",
+    "Use 'by' to mention the doer: The cake was eaten by my brother.",
+    "Tenses: is done (present), was done (past), has been done (present perfect), will be done (future).",
+    "Korean passive (~되다) often translates to English passive.",
+  ],
+  related: ["present-perfect", "past-simple-vs-present-perfect"],
+});

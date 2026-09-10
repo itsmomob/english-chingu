@@ -1,0 +1,32 @@
+registerGrammar({
+  id: "prepositions-place",
+  title: "Prepositions of Place (in, on, at)",
+  titleKo: "장소 전치사 (in, on, at)",
+  level: "Beginner",
+  category: "Prepositions",
+  explanationKo: "시간 전치사와 마찬가지로 장소 전치사 in, on, at도 쓰임이 다릅니다. 넓은 장소에는 in, 표면에는 on, 특정 지점에는 at을 씁니다.",
+  explanationEn: "Use 'in', 'on', and 'at' to talk about location. The choice depends on whether the place is an enclosed space, a surface, or a specific point.",
+  structure: "in + enclosed spaces (building, city, country)  |  on + surfaces  |  at + specific points",
+  examples: [
+    { en: "I live in Seoul.", ko: "저는 서울에 살아요." },
+    { en: "The book is on the table.", ko: "책이 탁자 위에 있어요." },
+    { en: "I'll meet you at the station.", ko: "역에서 만나요." },
+    { en: "She's in the car.", ko: "그녀는 차 안에 있어요." },
+    { en: "He's at the door.", ko: "그는 문 앞에 있어요." },
+    { en: "We sat on the bench.", ko: "우리는 벤치에 앉았어요." },
+  ],
+  commonMistakes: [
+    { wrong: "I live at Seoul.", right: "I live in Seoul.", note: "Use 'in' with cities and countries." },
+    { wrong: "The book is in the table.", right: "The book is on the table.", note: "Use 'on' for surfaces." },
+    { wrong: "I'll meet you in the station.", right: "I'll meet you at the station.", note: "Use 'at' for meeting points." },
+    { wrong: "She's on the car.", right: "She's in the car.", note: "Use 'in' for enclosed vehicles (car, taxi)." },
+  ],
+  tips: [
+    "In = inside an enclosed space: in the room, in the car, in Korea.",
+    "On = on a surface: on the table, on the wall, on the bus (public transport).",
+    "At = at a specific point: at the door, at the bus stop, at the corner.",
+    "Transport: in a car / in a taxi, but on a bus / on a train / on a plane.",
+    "At home is a fixed phrase — no 'the'.",
+  ],
+  related: ["prepositions-time"],
+});

@@ -1,0 +1,32 @@
+registerGrammar({
+  id: "word-order",
+  title: "Word Order (SVO vs SOV)",
+  titleKo: "어순 (SVO vs SOV)",
+  level: "Beginner",
+  category: "Sentence Structure",
+  explanationKo: "한국어는 주어-목적어-동사(SOV) 순서지만, 영어는 주어-동사-목적어(SVO) 순서입니다. 이 차이 때문에 한국인 학습자가 영어 문장을 만들 때 동사를 문장 끝에 두는 실수를 자주 합니다.",
+  explanationEn: "Korean is SOV (Subject-Object-Verb), but English is SVO (Subject-Verb-Object). This difference causes frequent word order mistakes.",
+  structure: "Subject + Verb + Object  |  I eat rice. (not I rice eat)",
+  examples: [
+    { en: "I eat rice.", ko: "나는 밥을 먹어요." },
+    { en: "She reads books every night.", ko: "그녀는 매일 밤 책을 읽어요." },
+    { en: "They bought a new car.", ko: "그들은 새 차를 샀어요." },
+    { en: "Do you like Korean food?", ko: "한국 음식 좋아하세요?" },
+    { en: "Where did you buy that?", ko: "그거 어디서 샀어요?" },
+    { en: "I have never been to Japan.", ko: "나는 일본에 가본 적이 없어요." },
+  ],
+  commonMistakes: [
+    { wrong: "I rice eat.", right: "I eat rice.", note: "English is SVO — verb before object." },
+    { wrong: "She books reads every night.", right: "She reads books every night.", note: "Verb comes before the object." },
+    { wrong: "I every day exercise.", right: "I exercise every day.", note: "Time expressions usually go at the end or beginning." },
+    { wrong: "What you are doing?", right: "What are you doing?", note: "In questions, the auxiliary verb comes before the subject." },
+  ],
+  tips: [
+    "Think 'I love you' — Subject + Verb + Object.",
+    "Adverbs of frequency (always, usually, never) go before the main verb: I always eat breakfast.",
+    "Time and place can go at the beginning or end: Yesterday, I went to the park. / I went to the park yesterday.",
+    "In questions, invert the subject and auxiliary: Are you happy? Did you eat?",
+    "In reported speech, the word order returns to normal: He asked where I was going.",
+  ],
+  related: ["present-tense", "modals"],
+});

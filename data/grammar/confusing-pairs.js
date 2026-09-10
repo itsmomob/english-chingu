@@ -1,0 +1,32 @@
+registerGrammar({
+  id: "confusing-pairs",
+  title: "Easily Confused Words",
+  titleKo: "헷갈리는 단어 쌍",
+  level: "Intermediate",
+  category: "Vocabulary",
+  explanationKo: "한국어로는 비슷하게 번역되지만 영어에서는 완전히 다른 단어들이 있습니다. 이런 단어들은 직역 때문에 실수하기 쉬워요. 대표적인 예로 fun/funny, play/hang out, promise/plans, are you okay/is it okay 등이 있습니다.",
+  explanationEn: "Some English words translate similarly in Korean but have different meanings. These are common sources of mistakes because of direct translation.",
+  structure: "fun (enjoyable) vs funny (makes you laugh)  |  play (children) vs hang out (adults)  |  promise (vow) vs plans (arrangement)",
+  examples: [
+    { en: "I had a fun time at the party.", ko: "파티에서 재미있게 놀았어요." },
+    { en: "That comedian is really funny.", ko: "그 코미디언은 정말 웃겨요." },
+    { en: "The kids played outside all day.", ko: "아이들이 하루 종일 밖에서 놀았어요." },
+    { en: "I hung out with my friends yesterday.", ko: "어제 친구들과 놀았어요." },
+    { en: "Is it okay to meet at 7?", ko: "7시에 만나는 것 괜찮아요?" },
+    { en: "Are you okay? You look tired.", ko: "괜찮아요? 피곤해 보여요." },
+  ],
+  commonMistakes: [
+    { wrong: "I had a funny time.", right: "I had a fun time.", note: "'Funny' = makes you laugh. 'Fun' = enjoyable." },
+    { wrong: "I played with my friends.", right: "I hung out with my friends.", note: "'Play' is for children. Adults 'hang out'." },
+    { wrong: "Are you okay to meet at 7?", right: "Is it okay to meet at 7?", note: "'Are you okay?' asks about health, not agreement." },
+    { wrong: "I made a promise with my friend.", right: "I have plans with my friend.", note: "'Promise' is a serious vow. 'Plans' is a casual arrangement." },
+  ],
+  tips: [
+    "Fun = enjoyable (activity). Funny = makes you laugh (person, joke).",
+    "Play = children, games, sports. Hang out = adults spending time together.",
+    "'Are you okay?' = health/feelings. 'Is it okay?' = agreement/approval.",
+    "Promise = I will definitely do it. Plans = a social arrangement.",
+    "Other pairs: borrow/lend, say/tell, see/watch, listen/hear.",
+  ],
+  related: [],
+});

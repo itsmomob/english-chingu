@@ -1,0 +1,30 @@
+registerGrammar({
+  id: "reported-speech",
+  title: "Reported Speech",
+  titleKo: "간접화법",
+  level: "Intermediate",
+  category: "Clauses",
+  explanationKo: "간접화법은 다른 사람이 한 말을 전달할 때 사용합니다. 직접화법을 간접화법으로 바꿀 때는 시제, 대명사, 시간 표현이 모두 바뀝니다. 한국어의 '~라고 말했다'와 비슷하지만 변화 규칙이 더 복잡해요.",
+  explanationEn: "Reported speech is used to tell someone what another person said. When changing direct to reported speech, tenses, pronouns, and time expressions shift back.",
+  structure: "Direct: She said, 'I am tired.'  |  Reported: She said (that) she was tired.",
+  examples: [
+    { en: "He said (that) he was busy.", ko: "그는 바쁘다고 말했어요." },
+    { en: "She told me she would call later.", ko: "그녀는 나중에 전화하겠다고 했어요." },
+    { en: "They said they had finished the project.", ko: "그들은 프로젝트를 끝냈다고 했어요." },
+    { en: "I asked if she was coming.", ko: "나는 그녀가 오는지 물었어요." },
+    { en: "He asked where I lived.", ko: "그는 내가 어디 사는지 물었어요." },
+  ],
+  commonMistakes: [
+    { wrong: "He said me that he was tired.", right: "He told me that he was tired.", note: "'Say' doesn't take a person object. Use 'tell + person'." },
+    { wrong: "He said he is tired.", right: "He said he was tired.", note: "Shift the tense back one step in reported speech." },
+    { wrong: "She asked where did I live.", right: "She asked where I lived.", note: "In reported questions, use statement word order (no auxiliary)." },
+  ],
+  tips: [
+    "Tense shift: am → was, is → was, will → would, can → could, have → had.",
+    "Time expressions: now → then, today → that day, tomorrow → the next day.",
+    "'Say' + clause, 'tell' + person + clause: He said he was tired. / He told me he was tired.",
+    "Yes/No questions become 'if' or 'whether': He asked if I was okay.",
+    "Wh-questions keep the question word but use statement order: He asked where I was from.",
+  ],
+  related: ["past-simple-vs-present-perfect"],
+});

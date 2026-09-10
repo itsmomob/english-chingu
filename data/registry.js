@@ -1,8 +1,3 @@
-/* ============================================================
-   registry.js — topic and grammar registry
-   Load this FIRST, before any topic or grammar file.
-   ============================================================ */
-
 window.__topics = [];
 window.__grammar = [];
 
