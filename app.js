@@ -6,7 +6,21 @@ const state = {
   practice: { topicId: null, cards: [], index: 0, direction: "ko-en", revealed: false },
   grammarFilter: "all",
 };
+/* ============================================================
+   English Mastery Hub — app.js (mobile-first)
+   ============================================================ */
 
+/* Assemble topics and grammar from the registry */
+const topics = window.__topics || [];
+const grammarPoints = window.__grammar || [];
+
+topics.sort((a, b) => a.title.localeCompare(b.title));
+grammarPoints.sort((a, b) => a.title.localeCompare(b.title));
+
+const state = {
+  practice: { topicId: null, cards: [], index: 0, direction: "ko-en", revealed: false },
+  grammarFilter: "all",
+};
 /* ---------- UTILS ---------- */
 function shuffle(arr) {
   const a = [...arr];
