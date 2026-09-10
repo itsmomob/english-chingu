@@ -1,0 +1,33 @@
+registerGrammar({
+  id: "countable-uncountable",
+  title: "Countable & Uncountable Nouns",
+  titleKo: "가산/불가산 명사",
+  level: "Intermediate",
+  category: "Nouns & Determiners",
+  explanationKo: "영어 명사는 셀 수 있는 명사(가산)와 셀 수 없는 명사(불가산)로 나뉩니다. 한국어에는 이런 구분이 없어서 실수를 많이 하는 부분이에요. 정보, 조언, 돈, 물 같은 명사들은 영어에서 셀 수 없습니다.",
+  explanationEn: "Countable nouns can be counted (one apple, two apples). Uncountable nouns cannot (water, information, advice). The choice affects which quantifiers you use.",
+  structure: "Countable: a/an, many, few, a few  |  Uncountable: much, little, a little, some  |  Both: a lot of, some, any",
+  examples: [
+    { en: "I have three books.", ko: "저는 책 세 권이 있어요." },
+    { en: "I need some information.", ko: "정보가 좀 필요해요." },
+    { en: "She gave me a lot of advice.", ko: "그녀가 저에게 조언을 많이 해줬어요." },
+    { en: "How much water do you drink?", ko: "물을 얼마나 마시나요?" },
+    { en: "How many apples do you want?", ko: "사과 몇 개 드릴까요?" },
+    { en: "I have a piece of good news.", ko: "좋은 소식이 하나 있어요." },
+  ],
+  commonMistakes: [
+    { wrong: "I need some informations.", right: "I need some information.", note: "'Information' is uncountable — no plural -s." },
+    { wrong: "She gave me many advices.", right: "She gave me a lot of advice.", note: "'Advice' is uncountable." },
+    { wrong: "I have many money.", right: "I have a lot of money.", note: "'Money' is uncountable. Use 'much' or 'a lot of'." },
+    { wrong: "Can you give me a advice?", right: "Can you give me a piece of advice?", note: "Use 'a piece of' with uncountable nouns." },
+    { wrong: "I bought three breads.", right: "I bought three loaves of bread.", note: "'Bread' is uncountable — use 'loaves', 'slices', or 'pieces'." },
+  ],
+  tips: [
+    "Common uncountable nouns: information, advice, furniture, luggage, money, news, work, bread, water, research, equipment.",
+    "Use 'a piece of', 'a bit of', 'a slice of' to count uncountable nouns.",
+    "'Much' and 'little' with uncountable; 'many' and 'few' with countable.",
+    "'A lot of' and 'some' work with both countable and uncountable nouns.",
+    "'News' looks plural but is uncountable: The news is good.",
+  ],
+  related: ["articles"],
+});

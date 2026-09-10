@@ -1,0 +1,32 @@
+registerGrammar({
+  id: "present-tense",
+  title: "Present Tense (Simple & Continuous)",
+  titleKo: "현재 시제",
+  level: "Beginner",
+  category: "Tenses",
+  explanationKo: "영어의 현재 시제는 두 가지가 있어요. 단순 현재(present simple)는 습관, 사실, 반복되는 일을 나타내고, 현재 진행형(present continuous)은 지금 이 순간 하고 있는 일을 나타냅니다. 한국어에는 이런 구분이 없어서 헷갈리기 쉬워요.",
+  explanationEn: "English has two present tenses. Present simple is for habits, facts, and routines. Present continuous is for actions happening right now or temporary situations.",
+  structure: "Simple: Subject + base verb (he/she/it + verb-s)  |  Continuous: Subject + am/is/are + verb-ing",
+  examples: [
+    { en: "I work at a bank. (permanent job)", ko: "저는 은행에서 일해요." },
+    { en: "I'm working from home this week. (temporary)", ko: "이번 주는 재택근무 중이에요." },
+    { en: "She usually drinks coffee in the morning.", ko: "그녀는 보통 아침에 커피를 마셔요." },
+    { en: "She is drinking tea right now.", ko: "그녀는 지금 차를 마시고 있어요." },
+    { en: "Water boils at 100°C.", ko: "물은 100도에서 끓어요." },
+    { en: "The train leaves at 8 PM.", ko: "기차는 오후 8시에 출발해요." },
+  ],
+  commonMistakes: [
+    { wrong: "I am work at a bank.", right: "I work at a bank.", note: "Don't use 'am/is/are' with the base verb. Either use simple present (work) or continuous (am working)." },
+    { wrong: "She drink coffee every morning.", right: "She drinks coffee every morning.", note: "Add -s to the verb with he/she/it in simple present." },
+    { wrong: "I am knowing the answer.", right: "I know the answer.", note: "Some verbs (know, like, want, believe, understand) are rarely used in continuous form." },
+    { wrong: "Look! It rains.", right: "Look! It's raining.", note: "Use present continuous for actions happening right now." },
+  ],
+  tips: [
+    "Simple present = habits, facts, schedules: I exercise every day.",
+    "Present continuous = right now, temporary: I'm exercising right now.",
+    "Time markers: simple → always, usually, often, never, every day. Continuous → now, at the moment, today, this week.",
+    "State verbs (know, love, hate, want, need, believe) usually stay in simple form.",
+    "Use present continuous for future plans: I'm meeting her tomorrow.",
+  ],
+  related: ["present-perfect", "past-simple-vs-present-perfect"],
+});

@@ -1,0 +1,33 @@
+registerGrammar({
+  id: "past-simple-vs-present-perfect",
+  title: "Past Simple vs Present Perfect",
+  titleKo: "과거 시제 vs 현재완료",
+  level: "Intermediate",
+  category: "Tenses",
+  explanationKo: "한국인 학습자가 가장 헷갈려하는 문법 중 하나입니다. 과거 시제는 끝난 일을, 현재완료는 과거의 일이 현재까지 영향을 미칠 때 씁니다. 핵심은 '언제' 일어났는지 말할 수 있으면 과거 시제, 말할 수 없으면 현재완료입니다.",
+  explanationEn: "Past simple is for completed actions at a specific past time. Present perfect connects a past action to the present, without a specific time.",
+  structure: "Past simple: Subject + verb-ed / irregular V2  |  Present perfect: Subject + have/has + V3",
+  examples: [
+    { en: "I saw that movie yesterday. (specific time)", ko: "나는 어제 그 영화를 봤어요." },
+    { en: "I have seen that movie. (experience, no time)", ko: "나는 그 영화를 본 적이 있어요." },
+    { en: "She went to London in 2020.", ko: "그녀는 2020년에 런던에 갔어요." },
+    { en: "She has been to London three times.", ko: "그녀는 런던에 세 번 가봤어요." },
+    { en: "We ate dinner at 7 PM.", ko: "우리는 7시에 저녁을 먹었어요." },
+    { en: "We have already eaten dinner.", ko: "우리는 이미 저녁을 먹었어요." },
+  ],
+  commonMistakes: [
+    { wrong: "I have seen him last week.", right: "I saw him last week.", note: "'Last week' is a finished time — use past simple." },
+    { wrong: "Did you ever try sushi?", right: "Have you ever tried sushi?", note: "'Ever' in experience questions uses present perfect." },
+    { wrong: "I have gone to the gym yesterday.", right: "I went to the gym yesterday.", note: "Specific past time = past simple." },
+    { wrong: "When have you arrived?", right: "When did you arrive?", note: "'When' asks for a specific time, so use past simple." },
+    { wrong: "I didn't have finished yet.", right: "I haven't finished yet.", note: "'Yet' with present perfect means 'up to now'." },
+  ],
+  tips: [
+    "Ask yourself: Can I say WHEN? If yes → past simple. If no → present perfect.",
+    "Past simple time markers: yesterday, last week, in 2020, ago, when.",
+    "Present perfect time markers: ever, never, just, already, yet, for, since, so far, recently.",
+    "News reports often start with present perfect, then switch to past simple for details.",
+    "In American English, past simple is often used where British English uses present perfect: I just ate. / I've just eaten.",
+  ],
+  related: ["present-perfect", "present-tense"],
+});

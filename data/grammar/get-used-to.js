@@ -1,0 +1,31 @@
+registerGrammar({
+  id: "get-used-to",
+  title: "To Get Used To / To Be Used To",
+  titleKo: "~에 익숙해지다",
+  level: "Intermediate",
+  category: "Verb Patterns",
+  explanationKo: "'Get used to'와 'be used to'는 한국인이 자주 헷갈리는 표현입니다. 'Get used to'는 익숙해지는 과정(변화), 'be used to'는 이미 익숙한 상태를 나타냅니다. 둘 다 뒤에 명사나 -ing 형태가 옵니다.",
+  explanationEn: "'Get used to' means becoming familiar with something over time. 'Be used to' means already being familiar. Both are followed by a noun or -ing form.",
+  structure: "get used to + noun / -ing  |  be used to + noun / -ing",
+  examples: [
+    { en: "I'm getting used to the cold weather in Seoul.", ko: "서울의 추운 날씨에 익숙해지고 있어요." },
+    { en: "I'm used to waking up early.", ko: "저는 일찍 일어나는 것에 익숙해요." },
+    { en: "She got used to living alone after a few months.", ko: "그녀는 몇 달 후 혼자 사는 것에 익숙해졌어요." },
+    { en: "He's used to working under pressure.", ko: "그는 압박 속에서 일하는 것에 익숙해요." },
+    { en: "You'll get used to the noise soon.", ko: "곧 소음에 익숙해질 거예요." },
+  ],
+  commonMistakes: [
+    { wrong: "I'm used to wake up early.", right: "I'm used to waking up early.", note: "Use -ing form after 'used to' when talking about a habit." },
+    { wrong: "I get used to live alone.", right: "I get used to living alone.", note: "'Get used to' takes -ing or a noun, not the base verb." },
+    { wrong: "I'm used to wake up early before.", right: "I used to wake up early before.", note: "'Used to + base verb' is different — it means a past habit that no longer happens." },
+    { wrong: "I used to living here.", right: "I used to live here.", note: "'Used to + base verb' (past habit) vs 'be used to + -ing' (familiar with)." },
+  ],
+  tips: [
+    "'Get used to' = the process of becoming familiar: I'm getting used to it.",
+    "'Be used to' = already familiar: I'm used to it.",
+    "'Used to + base verb' = past habit that stopped: I used to smoke.",
+    "After 'get/be used to', always use a noun or -ing form.",
+    "Negative form: I can't get used to this weather.",
+  ],
+  related: ["present-tense"],
+});

@@ -1,0 +1,31 @@
+registerGrammar({
+  id: "third-conditional",
+  title: "Third Conditional",
+  titleKo: "가정법 과거완료",
+  level: "Advanced",
+  category: "Conditionals",
+  explanationKo: "가정법 과거완료는 과거에 일어나지 않은 일을 상상하거나 후회할 때 사용합니다. '만약 ~했더라면, ~했을 텐데'라는 의미예요. 이미 지나간 일이라 현실에서는 바꿀 수 없다는 점이 핵심입니다.",
+  explanationEn: "The third conditional is for imagining or regretting the past. It's about 'what if' situations that didn't happen and can't be changed.",
+  structure: "If + past perfect, would have + past participle  |  If I had known, I would have told you.",
+  examples: [
+    { en: "If I had studied harder, I would have passed the exam.", ko: "더 열심히 공부했더라면 시험에 합격했을 텐데." },
+    { en: "If she had left earlier, she wouldn't have missed the train.", ko: "그녀가 더 일찍 떠났더라면 기차를 놓치지 않았을 텐데." },
+    { en: "We would have arrived on time if we hadn't gotten lost.", ko: "길을 잃지 않았더라면 제시간에 도착했을 텐데." },
+    { en: "If I had known you were coming, I would have baked a cake.", ko: "네가 온다는 걸 알았더라면 케이크를 구웠을 텐데." },
+    { en: "What would you have done if you had been me?", ko: "네가 나였다면 어떻게 했을 것 같아?" },
+  ],
+  commonMistakes: [
+    { wrong: "If I would have studied, I would have passed.", right: "If I had studied, I would have passed.", note: "Never use 'would have' in the 'if' clause — use 'had + V3'." },
+    { wrong: "If I had studied, I had passed.", right: "If I had studied, I would have passed.", note: "The second half needs 'would have + V3'." },
+    { wrong: "If I have known, I would have told you.", right: "If I had known, I would have told you.", note: "Third conditional uses past perfect, not present perfect." },
+    { wrong: "If I would know, I would tell you.", right: "If I knew, I would tell you.", note: "That's second conditional — use past simple in the 'if' clause." },
+  ],
+  tips: [
+    "Use third conditional for regret: If I had known, I would have acted differently.",
+    "Never put 'would' in the 'if' clause. Use: If + had + V3.",
+    "You can flip the order: I would have passed if I had studied.",
+    "Mixed conditional: If I had studied medicine, I would be a doctor now. (past condition, present result)",
+    "Common in apologies and reflections: I wouldn't have said that if I had known.",
+  ],
+  related: [],
+});

@@ -1,0 +1,33 @@
+registerGrammar({
+  id: "phrasal-verbs",
+  title: "Phrasal Verbs",
+  titleKo: "구동사",
+  level: "Intermediate",
+  category: "Verbs",
+  explanationKo: "구동사는 동사와 전치사/부사가 결합해 원래 동사와 다른 의미를 만드는 표현입니다. 영어 회화에서 매우 자주 쓰이기 때문에 반드시 익혀야 합니다. 같은 동사라도 뒤에 오는 단어에 따라 의미가 완전히 달라져요.",
+  explanationEn: "A phrasal verb is a verb + particle (preposition or adverb) that creates a new meaning. They're extremely common in everyday English and often more natural than their formal equivalents.",
+  structure: "Verb + particle  |  Some are separable (turn it off / turn off it), some are not (look after it)",
+  examples: [
+    { en: "I need to look after my little sister.", ko: "여동생을 돌봐야 해요." },
+    { en: "Let's figure out the problem together.", ko: "함께 문제를 해결해 봅시다." },
+    { en: "She gave up smoking last year.", ko: "그녀는 작년에 담배를 끊었어요." },
+    { en: "We ran into each other at the mall.", ko: "우리는 쇼핑몰에서 우연히 만났어요." },
+    { en: "I'm looking forward to the trip.", ko: "여행이 기대돼요." },
+    { en: "Please turn off the lights.", ko: "불 좀 꺼 주세요." },
+  ],
+  commonMistakes: [
+    { wrong: "I look forward to meet you.", right: "I look forward to meeting you.", note: "After 'look forward to', use -ing form." },
+    { wrong: "Please turn off it.", right: "Please turn it off.", note: "With separable phrasal verbs, pronouns go between the verb and particle." },
+    { wrong: "I gave up to smoke.", right: "I gave up smoking.", note: "'Give up' is followed by -ing." },
+    { wrong: "Can you pick up me?", right: "Can you pick me up?", note: "Pronoun goes between verb and particle." },
+  ],
+  tips: [
+    "Common phrasal verbs: get up, wake up, turn on/off, put on, take off, look for, find out, give up, figure out, come across, run into.",
+    "Some are separable: turn off the TV / turn the TV off / turn it off.",
+    "Some are inseparable: look after the baby (not look the baby after).",
+    "After some phrasal verbs, use -ing: give up smoking, look forward to seeing you.",
+    "Phrasal verbs are usually more conversational than their Latin-based equivalents: put off = postpone.",
+    "Learn them in context — flashcards with full sentences work best.",
+  ],
+  related: ["modals"],
+});
