@@ -1,26 +1,53 @@
 /* ============================================================
-   English Mastery Hub — app.js (mobile-first)
+   English Mastery Hub — app.js (unified)
+   Supports:
+     - Flat topics:     vocabulary / idioms / discussionQuestions
+     - Sectioned topics: sections[] → questions[] → vocab / phrasalVerbs / model
    ============================================================ */
 
-const state = {
-  practice: { topicId: null, cards: [], index: 0, direction: "ko-en", revealed: false },
-  grammarFilter: "all",
-};
-/* ============================================================
-   English Mastery Hub — app.js (mobile-first)
-   ============================================================ */
-
-/* Assemble topics and grammar from the registry */
+/* ---------- ASSEMBLE FROM REGISTRY ---------- */
 const topics = window.__topics || [];
 const grammarPoints = window.__grammar || [];
 
+/* Sort alphabetically for consistent listing */
 topics.sort((a, b) => a.title.localeCompare(b.title));
 grammarPoints.sort((a, b) => a.title.localeCompare(b.title));
 
+/* ---------- FLATTEN SECTIONED TOPICS ---------- */
+/* Adds vocabulary, idioms, discussionQuestions to any topic
+   that only defines `sections`, so that:
+     - topic cards can display counts
+     - practice mode has a flat deck
+     - search and filters work uniformly */
+function flattenTopic(topic) {
+  // Always ensure the three flat arrays exist
+  topic.vocabulary = topic.vocabulary || [];
+  topic.idioms = topic.idioms || [];
+  topic.discussionQuestions = topic.discussionQuestions || [];
+
+  if (!topic.sections || !topic.sections.length) return topic;
+
+  topic.sections.forEach((section) => {
+    (section.questions || []).forEach((q) => {
+      if (q.q) topic.discussionQuestions.push(q.q);
+      (q.vocab || []).forEach((v) => topic.vocabulary.push(v));
+      (q.phrasalVerbs || []).forEach((p) =>
+        topic.idioms.push({ ...p, register: p.register || "neutral" })
+      );
+    });
+  });
+
+  return topic;
+}
+
+topics.forEach(flattenTopic);
+
+/* ---------- STATE ---------- */
 const state = {
   practice: { topicId: null, cards: [], index: 0, direction: "ko-en", revealed: false },
   grammarFilter: "all",
 };
+
 /* ---------- UTILS ---------- */
 function shuffle(arr) {
   const a = [...arr];
@@ -33,20 +60,31 @@ function shuffle(arr) {
 
 function esc(str) {
   if (str == null) return "";
-  return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
 }
 
-function getTopic(id) { return topics.find((t) => t.id === id); }
-function getGrammar(id) { return grammarPoints.find((g) => g.id === id); }
-function levelClass(level) { return "level-" + level.toLowerCase(); }
+function getTopic(id) {
+  return topics.find((t) => t.id === id);
+}
+
+function getGrammar(id) {
+  return grammarPoints.find((g) => g.id === id);
+}
+
+function levelClass(level) {
+  return "level-" + String(level || "").toLowerCase();
+}
 
 function setAppBarTitle(title) {
   document.getElementById("appBarTitle").textContent = title || "English Mastery Hub";
 }
 
 function showBackButton(show) {
-  const btn = document.getElementById("backBtn");
-  btn.hidden = !show;
+  document.getElementById("backBtn").hidden = !show;
 }
 
 /* ---------- ROUTER ---------- */
@@ -58,10 +96,13 @@ function router() {
 
   // Highlight active tab
   document.querySelectorAll(".tab-bar__item").forEach((a) => {
-    a.classList.toggle("active", a.dataset.nav === view || (view === "topic" && a.dataset.nav === "topics") || (view === "practice" && a.dataset.nav === "topics"));
+    const isActive =
+      a.dataset.nav === view ||
+      (view === "topic" && a.dataset.nav === "topics") ||
+      (view === "practice" && a.dataset.nav === "topics");
+    a.classList.toggle("active", isActive);
   });
 
-  // Back button visibility
   showBackButton(view !== "home");
 
   if (view === "home") renderHome();
@@ -75,12 +116,27 @@ function router() {
   window.scrollTo({ top: 0, behavior: "instant" });
 }
 
-/* ---------- HOME ---------- */
+/* ============================================================
+   HOME
+   ============================================================ */
 function renderHome() {
   setAppBarTitle("English Mastery Hub");
   const app = document.getElementById("app");
-  const featured = topics[0];
-  const recent = topics.slice(1, 4);
+
+  // Pick the first topic that has actual content
+  const featured = topics.find((t) => (t.vocabulary && t.vocabulary.length) || (t.sections && t.sections.length)) || topics[0];
+
+  if (!featured) {
+    app.innerHTML = `
+      <div class="empty">
+        <h2>주제가 아직 없습니다</h2>
+        <p>data/topics/ 폴더에 파일을 추가하세요.</p>
+      </div>
+    `;
+    return;
+  }
+
+  const recent = topics.filter((t) => t.id !== featured.id).slice(0, 3);
 
   app.innerHTML = `
     <section class="hero">
@@ -129,7 +185,13 @@ function renderHome() {
   `;
 }
 
+/* ============================================================
+   TOPIC CARD (used on home + topics list)
+   ============================================================ */
 function topicCardHTML(t) {
+  const vocabCount = t.vocabulary ? t.vocabulary.length : 0;
+  const idiomCount = t.idioms ? t.idioms.length : 0;
+
   return `
     <a href="#/topic/${t.id}" class="topic-card">
       <div class="topic-card__badges">
@@ -139,17 +201,20 @@ function topicCardHTML(t) {
       <h3>${esc(t.title)}</h3>
       <p class="ko">${esc(t.titleKo)}</p>
       <div class="topic-card__meta">
-        <span>📖 ${t.vocabulary.length}개 어휘</span>
-        <span>💬 ${t.idioms.length}개 표현</span>
+        <span>📖 ${vocabCount}개 어휘</span>
+        <span>💬 ${idiomCount}개 표현</span>
       </div>
     </a>
   `;
 }
 
-/* ---------- TOPICS LIST ---------- */
+/* ============================================================
+   TOPICS LIST
+   ============================================================ */
 function renderTopics() {
   setAppBarTitle("주제별 어휘");
   const app = document.getElementById("app");
+
   app.innerHTML = `
     <h1>주제별 어휘</h1>
     <p class="subtitle">수업 주제를 선택해 복습하세요.</p>
@@ -159,18 +224,39 @@ function renderTopics() {
   `;
 }
 
-/* ---------- TOPIC DETAIL ---------- */
+/* ============================================================
+   TOPIC DETAIL — dispatcher
+   ============================================================ */
 function renderTopicDetail(id) {
   const topic = getTopic(id);
   const app = document.getElementById("app");
 
   if (!topic) {
     setAppBarTitle("찾을 수 없음");
-    app.innerHTML = `<div class="empty"><h2>주제를 찾을 수 없습니다</h2><a href="#/topics" class="btn">주제 목록으로</a></div>`;
+    app.innerHTML = `
+      <div class="empty">
+        <h2>주제를 찾을 수 없습니다</h2>
+        <a href="#/topics" class="btn">주제 목록으로</a>
+      </div>
+    `;
     return;
   }
 
   setAppBarTitle(topic.title);
+
+  // Choose renderer based on topic format
+  if (topic.sections && topic.sections.length) {
+    renderSectionedTopicDetail(topic);
+  } else {
+    renderFlatTopicDetail(topic);
+  }
+}
+
+/* ============================================================
+   TOPIC DETAIL — sectioned view (studio format)
+   ============================================================ */
+function renderSectionedTopicDetail(topic) {
+  const app = document.getElementById("app");
 
   app.innerHTML = `
     <header class="topic-header">
@@ -180,78 +266,26 @@ function renderTopicDetail(id) {
       </div>
       <h1>${esc(topic.title)}</h1>
       <div class="ko-title">${esc(topic.titleKo)}</div>
-      <p class="summary">${esc(topic.summaryKo)}</p>
+      <p class="summary">${esc(topic.summaryKo || "")}</p>
     </header>
 
-    <!-- Vocabulary accordion (open by default) -->
-    <div class="accordion open" data-acc="vocab">
-      <button class="accordion__header">
-        <span class="accordion__title">
-          📖 핵심 어휘
-          <span class="accordion__count">${topic.vocabulary.length}</span>
-        </span>
-        <span class="accordion__chevron">▼</span>
-      </button>
-      <div class="accordion__body">
-        ${topic.vocabulary.map(vocabItemHTML).join("")}
+    ${topic.sections.map((section, si) => `
+      <div class="accordion ${si === 0 ? "open" : ""}">
+        <button class="accordion__header">
+          <span class="accordion__title">
+            <span class="section-number">${si + 1}</span>
+            ${esc(section.title)}
+          </span>
+          <span class="accordion__chevron">▼</span>
+        </button>
+        <div class="accordion__body">
+          ${(section.questions || []).map(renderQuestionBlock).join("")}
+        </div>
       </div>
-    </div>
+    `).join("")}
 
-    ${topic.idioms.length ? `
-    <div class="accordion" data-acc="idioms">
-      <button class="accordion__header">
-        <span class="accordion__title">
-          💬 관용 표현
-          <span class="accordion__count">${topic.idioms.length}</span>
-        </span>
-        <span class="accordion__chevron">▼</span>
-      </button>
-      <div class="accordion__body">
-        ${topic.idioms.map((i) => vocabItemHTML(i, true)).join("")}
-      </div>
-    </div>
-    ` : ""}
+    ${renderGrammarSpotlight(topic)}
 
-    ${topic.discussionQuestions.length ? `
-    <div class="accordion" data-acc="questions">
-      <button class="accordion__header">
-        <span class="accordion__title">
-          🗣️ 토론 질문
-          <span class="accordion__count">${topic.discussionQuestions.length}</span>
-        </span>
-        <span class="accordion__chevron">▼</span>
-      </button>
-      <div class="accordion__body">
-        ${topic.discussionQuestions.map((q) => `<div class="question-item">${esc(q)}</div>`).join("")}
-      </div>
-    </div>
-    ` : ""}
-
-    ${topic.grammarSpotlight && topic.grammarSpotlight.length ? `
-    <div class="accordion" data-acc="grammar">
-      <button class="accordion__header">
-        <span class="accordion__title">📌 문법 포인트</span>
-        <span class="accordion__chevron">▼</span>
-      </button>
-      <div class="accordion__body">
-        ${topic.grammarSpotlight.map((g) => {
-          const gp = getGrammar(g.grammarId);
-          if (!gp) return "";
-          return `
-            <a href="#/grammar/${gp.id}" class="grammar-link" style="margin-bottom:8px;">
-              <div>
-                <strong>${esc(gp.title)}</strong>
-                <div class="ko">${esc(gp.titleKo)}</div>
-              </div>
-              <span style="color:var(--text-muted);">→</span>
-            </a>
-          `;
-        }).join("")}
-      </div>
-    </div>
-    ` : ""}
-
-    <!-- Floating action button for practice -->
     <a href="#/practice/${topic.id}" class="fab">
       <span class="fab__icon">🎯</span>
       <span>연습 시작</span>
@@ -266,29 +300,187 @@ function renderTopicDetail(id) {
   });
 }
 
+function renderQuestionBlock(q) {
+  return `
+    <div class="question-block">
+      <div class="question-block__q">
+        <div class="question-block__en">${esc(q.q)}</div>
+        ${q.qKo ? `<div class="question-block__ko">${esc(q.qKo)}</div>` : ""}
+      </div>
+
+      ${q.vocab && q.vocab.length ? `
+      <div class="question-block__section">
+        <div class="question-block__label">📖 어휘</div>
+        ${q.vocab.map((v) => `
+          <div class="mini-vocab">
+            <span class="mini-vocab__en">${esc(v.en)}</span>
+            <span class="mini-vocab__ko">${esc(v.ko)}</span>
+          </div>
+        `).join("")}
+      </div>
+      ` : ""}
+
+      ${q.phrasalVerbs && q.phrasalVerbs.length ? `
+      <div class="question-block__section">
+        <div class="question-block__label">🔗 구동사 & 표현</div>
+        ${q.phrasalVerbs.map((p) => `
+          <div class="mini-vocab">
+            <span class="mini-vocab__en">${esc(p.en)}</span>
+            <span class="mini-vocab__ko">${esc(p.ko)}</span>
+          </div>
+        `).join("")}
+      </div>
+      ` : ""}
+
+      ${q.model ? `
+      <div class="question-block__model">
+        <div class="question-block__label">💡 모범 답안</div>
+        <div class="model-en">"${esc(q.model)}"</div>
+        ${q.modelKo ? `<div class="model-ko">${esc(q.modelKo)}</div>` : ""}
+      </div>
+      ` : ""}
+    </div>
+  `;
+}
+
+/* ============================================================
+   TOPIC DETAIL — flat view (legacy / simple format)
+   ============================================================ */
+function renderFlatTopicDetail(topic) {
+  const app = document.getElementById("app");
+
+  app.innerHTML = `
+    <header class="topic-header">
+      <div class="topic-header__badges">
+        <span class="badge">${esc(topic.category)}</span>
+        <span class="badge ${levelClass(topic.level)}">${esc(topic.level)}</span>
+      </div>
+      <h1>${esc(topic.title)}</h1>
+      <div class="ko-title">${esc(topic.titleKo)}</div>
+      <p class="summary">${esc(topic.summaryKo || "")}</p>
+    </header>
+
+    ${topic.vocabulary.length ? `
+    <div class="accordion open">
+      <button class="accordion__header">
+        <span class="accordion__title">
+          📖 핵심 어휘
+          <span class="accordion__count">${topic.vocabulary.length}</span>
+        </span>
+        <span class="accordion__chevron">▼</span>
+      </button>
+      <div class="accordion__body">
+        ${topic.vocabulary.map((v) => vocabItemHTML(v)).join("")}
+      </div>
+    </div>
+    ` : ""}
+
+    ${topic.idioms.length ? `
+    <div class="accordion">
+      <button class="accordion__header">
+        <span class="accordion__title">
+          💬 관용 표현
+          <span class="accordion__count">${topic.idioms.length}</span>
+        </span>
+        <span class="accordion__chevron">▼</span>
+      </button>
+      <div class="accordion__body">
+        ${topic.idioms.map((i) => vocabItemHTML(i, true)).join("")}
+      </div>
+    </div>
+    ` : ""}
+
+    ${topic.discussionQuestions.length ? `
+    <div class="accordion">
+      <button class="accordion__header">
+        <span class="accordion__title">
+          🗣️ 토론 질문
+          <span class="accordion__count">${topic.discussionQuestions.length}</span>
+        </span>
+        <span class="accordion__chevron">▼</span>
+      </button>
+      <div class="accordion__body">
+        ${topic.discussionQuestions.map((q) => `<div class="question-item">${esc(q)}</div>`).join("")}
+      </div>
+    </div>
+    ` : ""}
+
+    ${renderGrammarSpotlight(topic)}
+
+    <a href="#/practice/${topic.id}" class="fab">
+      <span class="fab__icon">🎯</span>
+      <span>연습 시작</span>
+    </a>
+  `;
+
+  app.querySelectorAll(".accordion__header").forEach((header) => {
+    header.addEventListener("click", () => {
+      header.closest(".accordion").classList.toggle("open");
+    });
+  });
+}
+
 function vocabItemHTML(v, isIdiom = false) {
+  const hasExample = v.exEn || v.exKo;
   return `
     <div class="vocab-item">
       <div class="vocab-item__head">
         <span class="vocab-item__en">${esc(v.en)}</span>
         <span class="vocab-item__ko">${esc(v.ko)}${v.register ? `<span class="register ${v.register}">${esc(v.register)}</span>` : ""}</span>
       </div>
+      ${hasExample ? `
       <div class="vocab-item__ex">
-        <div class="ex-en">${esc(v.exEn)}</div>
-        <div>${esc(v.exKo)}</div>
+        ${v.exEn ? `<div class="ex-en">${esc(v.exEn)}</div>` : ""}
+        ${v.exKo ? `<div>${esc(v.exKo)}</div>` : ""}
       </div>
+      ` : ""}
     </div>
   `;
 }
 
-/* ---------- GRAMMAR LIST ---------- */
+function renderGrammarSpotlight(topic) {
+  if (!topic.grammarSpotlight || !topic.grammarSpotlight.length) return "";
+
+  const links = topic.grammarSpotlight
+    .map((g) => {
+      const gp = getGrammar(g.grammarId);
+      if (!gp) return "";
+      return `
+        <a href="#/grammar/${gp.id}" class="grammar-link" style="margin-bottom:8px;">
+          <div>
+            <strong>${esc(gp.title)}</strong>
+            <div class="ko">${esc(gp.titleKo)}</div>
+          </div>
+          <span style="color:var(--text-muted);">→</span>
+        </a>
+      `;
+    })
+    .join("");
+
+  if (!links) return "";
+
+  return `
+    <div class="accordion">
+      <button class="accordion__header">
+        <span class="accordion__title">📌 문법 포인트</span>
+        <span class="accordion__chevron">▼</span>
+      </button>
+      <div class="accordion__body">${links}</div>
+    </div>
+  `;
+}
+
+/* ============================================================
+   GRAMMAR LIST
+   ============================================================ */
 function renderGrammarList() {
   setAppBarTitle("문법 가이드");
   const app = document.getElementById("app");
   const levels = ["all", "Beginner", "Intermediate", "Advanced"];
-  const filtered = state.grammarFilter === "all"
-    ? grammarPoints
-    : grammarPoints.filter((g) => g.level === state.grammarFilter);
+  const filtered =
+    state.grammarFilter === "all"
+      ? grammarPoints
+      : grammarPoints.filter((g) => g.level === state.grammarFilter);
 
   app.innerHTML = `
     <h1>문법 가이드</h1>
@@ -324,14 +516,21 @@ function renderGrammarList() {
   });
 }
 
-/* ---------- GRAMMAR DETAIL ---------- */
+/* ============================================================
+   GRAMMAR DETAIL
+   ============================================================ */
 function renderGrammarDetail(id) {
   const g = getGrammar(id);
   const app = document.getElementById("app");
 
   if (!g) {
     setAppBarTitle("찾을 수 없음");
-    app.innerHTML = `<div class="empty"><h2>문법 항목을 찾을 수 없습니다</h2><a href="#/grammar" class="btn">문법 목록으로</a></div>`;
+    app.innerHTML = `
+      <div class="empty">
+        <h2>문법 항목을 찾을 수 없습니다</h2>
+        <a href="#/grammar" class="btn">문법 목록으로</a>
+      </div>
+    `;
     return;
   }
 
@@ -353,11 +552,14 @@ function renderGrammarDetail(id) {
       <p class="strong">${esc(g.explanationEn)}</p>
     </div>
 
+    ${g.structure ? `
     <div class="grammar-block">
       <h2>🧩 구조</h2>
       <div class="structure-box">${esc(g.structure)}</div>
     </div>
+    ` : ""}
 
+    ${g.examples && g.examples.length ? `
     <div class="grammar-block">
       <h2>✅ 예문</h2>
       <div class="example-list">
@@ -369,6 +571,7 @@ function renderGrammarDetail(id) {
         `).join("")}
       </div>
     </div>
+    ` : ""}
 
     ${g.commonMistakes && g.commonMistakes.length ? `
     <div class="grammar-block">
@@ -406,7 +609,9 @@ function renderGrammarDetail(id) {
   `;
 }
 
-/* ---------- DISCUSSION ---------- */
+/* ============================================================
+   DISCUSSION
+   ============================================================ */
 function renderDiscussion() {
   setAppBarTitle("토론 표현");
   const app = document.getElementById("app");
@@ -502,14 +707,21 @@ function renderDiscussion() {
   `;
 }
 
-/* ---------- PRACTICE ---------- */
+/* ============================================================
+   PRACTICE MODE
+   ============================================================ */
 function renderPractice(topicId) {
   const topic = getTopic(topicId);
   const app = document.getElementById("app");
 
   if (!topic) {
     setAppBarTitle("찾을 수 없음");
-    app.innerHTML = `<div class="empty"><h2>주제를 찾을 수 없습니다</h2><a href="#/topics" class="btn">주제 목록으로</a></div>`;
+    app.innerHTML = `
+      <div class="empty">
+        <h2>주제를 찾을 수 없습니다</h2>
+        <a href="#/topics" class="btn">주제 목록으로</a>
+      </div>
+    `;
     return;
   }
 
@@ -519,6 +731,17 @@ function renderPractice(topicId) {
     ...topic.vocabulary.map((v) => ({ ...v, type: "vocab" })),
     ...topic.idioms.map((i) => ({ ...i, type: "idiom" })),
   ];
+
+  if (!allItems.length) {
+    app.innerHTML = `
+      <div class="empty">
+        <h2>연습할 항목이 없습니다</h2>
+        <p>이 주제에는 아직 어휘가 없습니다.</p>
+        <a href="#/topic/${topic.id}" class="btn">주제로 돌아가기</a>
+      </div>
+    `;
+    return;
+  }
 
   state.practice.topicId = topicId;
   state.practice.cards = shuffle(allItems);
@@ -595,20 +818,27 @@ function renderPracticeCard() {
   document.getElementById("flashcardHint").textContent = card.type === "idiom" ? "관용 표현" : "어휘";
   document.getElementById("prompt").textContent = prompt;
   document.getElementById("answer").textContent = answer;
-  document.getElementById("example").innerHTML = `
-    <div class="ex-en">${esc(card.exEn || "")}</div>
-    <div>${esc(card.exKo || "")}</div>
-  `;
+
+  // Example box (may be empty for sectioned topics)
+  const exampleEl = document.getElementById("example");
+  if (card.exEn || card.exKo) {
+    exampleEl.innerHTML = `
+      ${card.exEn ? `<div class="ex-en">${esc(card.exEn)}</div>` : ""}
+      ${card.exKo ? `<div>${esc(card.exKo)}</div>` : ""}
+    `;
+  } else {
+    exampleEl.innerHTML = "";
+  }
 
   document.getElementById("answer").classList.toggle("hidden", !revealed);
-  document.getElementById("example").classList.toggle("hidden", !revealed);
+  exampleEl.classList.toggle("hidden", !revealed);
   document.getElementById("progressText").textContent = `${index + 1} / ${cards.length}`;
   document.getElementById("practiceFeedback").textContent = "";
   document.getElementById("practiceFeedback").className = "feedback";
   document.getElementById("practiceInput").value = "";
   document.getElementById("verifyBtn").textContent = revealed ? "다음 →" : "확인";
 
-  // Focus input only on desktop (avoids mobile keyboard popping up on every card)
+  // Focus input only on desktop (avoids mobile keyboard popping on every card)
   if (window.innerWidth >= 640) {
     document.getElementById("practiceInput").focus();
   }
@@ -616,7 +846,10 @@ function renderPracticeCard() {
 
 function verifyPracticeAnswer() {
   const { cards, index, direction, revealed } = state.practice;
-  if (revealed) { movePractice(1); return; }
+  if (revealed) {
+    movePractice(1);
+    return;
+  }
 
   const input = document.getElementById("practiceInput").value.trim().toLowerCase();
   if (!input) {
@@ -627,7 +860,7 @@ function verifyPracticeAnswer() {
 
   const card = cards[index];
   const target = direction === "ko-en" ? card.en : card.ko;
-  const variants = target.split("/").map((s) => s.trim().toLowerCase());
+  const variants = String(target).split("/").map((s) => s.trim().toLowerCase());
   const cleanVariants = variants.flatMap((v) => {
     const clean = v.replace(/\s*\(.*?\)\s*/g, "").trim();
     return [v, clean];
@@ -668,12 +901,13 @@ function movePractice(dir) {
   renderPracticeCard();
 }
 
-/* ---------- BACK BUTTON ---------- */
+/* ============================================================
+   BACK BUTTON + INIT
+   ============================================================ */
 document.getElementById("backBtn").addEventListener("click", () => {
   if (window.history.length > 1) window.history.back();
   else window.location.hash = "#/";
 });
 
-/* ---------- INIT ---------- */
 window.addEventListener("hashchange", router);
 window.addEventListener("DOMContentLoaded", router);
