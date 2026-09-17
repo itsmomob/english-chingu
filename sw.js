@@ -1,18 +1,15 @@
 /* ============================================================
    Service Worker — English Mastery Hub
-   Strategy:
-     - Precache the app shell
-     - Cache topic & grammar files on first fetch
-     - Serve from cache first, fall back to network, fall back to index.html
    ============================================================ */
 
-const CACHE = "emh-v7";
+const CACHE = "emh-v8";
 
 const SHELL = [
   "./",
   "./index.html",
   "./style.css",
   "./app.js",
+  "./crossword.js",
   "./manifest.json",
   "./data/registry.js",
 ];
